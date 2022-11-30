@@ -37,6 +37,9 @@ for i in range(1,4):
             target_images[i - 1].append(pygame.transform.scale(
                pygame.image.load(f'assets/targets/{i}/{j}.png'), (120 - (j*18), 80 - (j*12))))
 
+def draw_score():
+    points_text = font.render(f'Points: {points}', True, 'black')
+    screen.blit(points_text, (320, 660))
 
 def draw_gun():
     mouse_pos = pygame.mouse.get_pos()
@@ -145,6 +148,7 @@ while(run):
             shot = False
     if level > 0:
         draw_gun()
+        draw_score()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
