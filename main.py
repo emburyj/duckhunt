@@ -41,6 +41,7 @@ def draw_score():
     points_text = font.render(f'Points: {points}', True, 'black')
     screen.blit(points_text, (320, 660))
 
+
 def draw_gun():
     mouse_pos = pygame.mouse.get_pos()
     gun_point = (WIDTH/2, HEIGHT - 200)
@@ -122,6 +123,7 @@ for i in range(4):
         three_coords[i].append((WIDTH//(my_list[i]) * j, 300 - (i * 100) + 30 * (j % 2)))
 
 run = True
+# begin while loop for game
 while(run):
     timer.tick(fps)
 
