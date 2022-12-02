@@ -24,6 +24,9 @@ total_shots = 0
 # modes: 0= freeplay, 1= accuracy, 2=timed
 mode = 0
 ammo = 0
+time_passed = 0
+time_remaining = 0
+counter = 1
 
 # draw the enemies
 for i in range(1,4):
@@ -42,6 +45,18 @@ for i in range(1,4):
 def draw_score():
     points_text = font.render(f'Points: {points}', True, 'black')
     screen.blit(points_text, (320, 660))
+    shots_text = font.render(f'Total Shots: {total_shots}', True, 'black')
+    screen.blit(shots_text, (320, 687))
+    time_text = font.render(f'Time Elapsed: {time_passed}', True, 'black')
+    screen.blit(time_text, (320, 714))
+    if mode == 0:
+        mode_text = font.render(f'Freeplay!', True, 'black')
+    if mode == 1:
+        mode_text = font.render(f'Ammo Remaining: {ammo}', True, 'black')
+    if mode == 2:
+        mode_text = font.render(f'Time Remaining: {time_remaining}', True, 'black')
+    screen.blit(mode_text, (320, 741))
+
 
 
 def draw_gun():
@@ -128,6 +143,14 @@ run = True
 # begin while loop for game
 while(run):
     timer.tick(fps)
+    if level != 0:
+        if counter < 60:
+            counter += 1
+        else:
+            counter = 1
+            time_passed += 1
+            if mode == 2:
+                time_remaining -= 1
 
     screen.fill('black')
     screen.blit(bgs[level - 1], (0, 0))
