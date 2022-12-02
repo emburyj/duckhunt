@@ -15,7 +15,9 @@ target_images = [[], [], []]
 targets = {1: [10, 5, 3],
             2: [12, 8, 5],
             3: [15, 12, 8, 3]}
+
 level = 1
+# initialize variables for gameplay
 points = 0
 shot = False
 total_shots = 0
