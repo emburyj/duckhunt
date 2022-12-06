@@ -58,7 +58,7 @@ for i in range(1,4):
 
 def draw_menu():
     global game_over, pause, mode, level, menu, time_passed, total_shots, points, ammo
-    global time_remaining, best_freeplay, best_ammo, best_timed, write_values
+    global time_remaining, best_freeplay, best_ammo, best_timed, write_values, clicked
     game_over = False
     pause = False
     screen.blit(menu_img, (0, 0))
@@ -108,7 +108,24 @@ def draw_game_over():
     pass
 
 def draw_pause():
-    pass
+    global level, pause, menu, points, total_shots, time_passed, time_remaining, clicked
+    screen.blit(pause_img, (0,0))
+    mouse_pos = pygame.mouse.get_pos()
+    clicks = pygame.mouse.get_pressed()
+    resume_button = pygame.rect.Rect((170, 661), (260, 100))
+    menu_button = pygame.rect.Rect((475, 661), (260, 100))
+    if resume_button.collidepoint(mouse_pos) and clicks[0] and not clicked:
+        level = resume_level
+        pause = False
+    if menu_button.collidepoint(mouse_pos) and clicks[0] and not clicked:
+        level = 0
+        pause = False
+        menu = True
+        points = 0
+        total_shots = 0
+        time_passed = 0
+        time_remaining = 0
+        clicked = True
 
 def draw_score():
     points_text = font.render(f'Points: {points}', True, 'black')
@@ -266,7 +283,16 @@ while(run):
                 total_shots += 1
                 if mode == 1:
                     ammo -= 1
-        if event.type == pygame.MOUSEBUTTONUP and even.button == and clicked:
+            # check if clicked pause button
+            if (678 < mouse_position[0] < 860) and (660 < mouse_position[1] < 715):
+                resume_level = level
+                pause = True
+                clicked = True
+            # check if clicked restart button
+            if (678 < mouse_position[0] < 860) and (715 < mouse_position[1] < 760):
+                menu = True
+                clicked = True
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1 and clicked:
             clicked = False
     if level > 0:
         if target_boxes == [[], [], []] and level < 3:
